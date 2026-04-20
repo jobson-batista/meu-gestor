@@ -6,6 +6,7 @@ import com.meugestor.entities.User;
 import com.meugestor.repositories.DebtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -35,6 +36,14 @@ public class DebtService {
 
         Debt newDebt = new Debt(amount, dueDate, creditor, debtor, status, interestRate);
         return debtRepository.save(newDebt);
+    }
+
+    public Debt updateDebt(Debt debt) {
+        // Ensure the debt exists before updating
+        if (!debtRepository.existsById(debt.getId())) {
+            throw new RuntimeException("Debt not found");
+        }
+        return debtRepository.save(debt);
     }
 
     public List<Debt> getAllDebts() {
