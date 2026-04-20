@@ -125,3 +125,5 @@ CREATE TABLE payments (
   payment_date DATE NOT NULL
 );
 ````
+
+Testando commit por MCP
